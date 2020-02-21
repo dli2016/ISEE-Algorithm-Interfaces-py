@@ -1,0 +1,6 @@
+To achieve Object Detection, one should complete the content provided in "ObjectDetection.py".
+Note:
+1. The class of ObjectDetection is inherented from the abstract class "ISEEVisAlgIntf"
+   1). Don't change the class name and functions name.
+   2). Don't change the order of the parameters in the fucntions.
+2. The return of the function "getResults" will influence other algorithms integrated in ISEE, so don't chage the result format.
