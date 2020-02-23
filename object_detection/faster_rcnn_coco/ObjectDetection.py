@@ -18,15 +18,13 @@ from detectron2.config import get_cfg # configuration parameters.
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import ColorMode, Visualizer
+from demo.utils import convertBBoxesResFormat
 # Import packages end.
 
 class ISEEObjectDetection(ISEEVisAlgIntf):
 
     # The variable can be modified by "config_file" or "params_dict" in init
     _DETECTION_METHOD = 'Faster-RCNN'
-
-    # Detection results
-    #_detection_res = None
 
     def __init__(self):
         super(ISEEObjectDetection, self).__init__()
@@ -113,7 +111,7 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
             cnt += 1
             out = detector(img)
             detect_res.append(out)
-            # To write the detection results to image.
+            # To write the detection results to an image.
             if output_path is not None:
                 metadata = MetadataCatalog.get(
                   self._cfg.DATASETS.TEST[0] if len(self._cfg.DATASETS.TEST) else "__unused"
@@ -122,7 +120,7 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
                 vis = Visualizer(img, metadata)
                 instances = out['instances'].to('cpu')
                 vis_img = vis.draw_instance_predictions(predictions=instances)
-                ifname = 'detection_res_{}.jpg'.format(cnt)
+                ifname = 'object_detection_res_{}.jpg'.format(cnt)
                 ifpath = os.path.join(output_path, ifname)
                 vis_img.save(ifpath)
         self._detection_res = detect_res
@@ -135,11 +133,13 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
         Convert the detection results to necessary format.
         The detection results must follow the format:
         [
-          [[x0, y0, x1, y1, score, label],
+          # image one
+          [[x0, y0, x1, y1, score, label], # a bbox
            [x0, y0, x1, y1, score, label],
            ...,
            [x0, y0, x1, y1, score, lable]],
           ...,
+          # image N
           [[x0, y0, x1, y1, score, label],
            [x0, y0, x1, y1, score, label],
            ...,
@@ -147,24 +147,19 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
         ]
 
         return:
-            The dtection results. None without calling the function of process.
+            The detection results. None without calling the function of process.
         """
         detect_res = self._detection_res
-        outputs = []
+        bboxes_list = []
         # (user custom code START)
         # Convert the data format to the necessary one.
         for output in detect_res:
             instances = output['instances'].to('cpu')
-            boxes  = instances.pred_boxes.tensor.numpy()
-            num_boxes = boxes.shape[0]
-            scores = instances.scores.view(num_boxes, -1).numpy()
-            classes= instances.pred_classes.view(num_boxes, -1).numpy()
-            res = np.hstack((boxes, scores))
-            res = np.hstack((res, classes))
-            outputs.append(res)
+            bboxes = convertBBoxesResFormat(instances)
+            bboxes_list.append(bboxes)
         # (user custom code END)
 
-        return outputs
+        return bboxes_list
 
     def release(self):
         """
