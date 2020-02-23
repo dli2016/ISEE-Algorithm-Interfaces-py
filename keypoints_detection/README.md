@@ -15,16 +15,34 @@ The text illustrates how to add custom keypoints detection class to run on ISEE.
     [
       # image one:
       [
-        [x, y, probability ( or visibility)] # a keypoint
-         ...,
-        [x, y, probability ( or visibility)]
+        # person one
+        [
+          [x, y, probability ( or visibility)] # a keypoint
+           ...,
+          [x, y, probability ( or visibility)]
+        ],
+        ...,
+        # person P
+        [
+          [x, y, probability ( or visibility)] # a keypoint
+           ...,
+          [x, y, probability ( or visibility)]
+        ]
       ],
       ...,
       # image N
       [
-        [x, y, probability ( or visibility)] # a keypoint
-         ...,
-        [x, y, probability ( or visibility)]
+        [
+          [x, y, probability ( or visibility)] # a keypoint
+           ...,
+          [x, y, probability ( or visibility)]
+        ],
+        ...,
+        [
+          [x, y, probability ( or visibility)] # a keypoint
+           ...,
+          [x, y, probability ( or visibility)]
+        ]
       ]
     ]
     ```

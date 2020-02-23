@@ -109,7 +109,6 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
         for img in imgs_data:
             cnt += 1
             out = detector(img)
-            print(out)
             detect_res.append(out)
             # To write the detection results to image.
             if output_path is not None:
@@ -138,16 +137,34 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
               [
                 # image one:
                 [
-                  [x, y, probability ( or visibility)] # a keypoint
+                  # person one
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ],
                   ...,
-                  [x, y, probability ( or visibility)]
+                  # person P
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ]
                 ],
                 ...,
                 # image N
                 [
-                  [x, y, probability ( or visibility)] # a keypoint
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ],
                   ...,
-                  [x, y, probability ( or visibility)]
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ]
                 ]
               ]
 

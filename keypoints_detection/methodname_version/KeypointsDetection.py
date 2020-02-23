@@ -89,21 +89,39 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
         Convert the detection results to necessary format.
 
         return:
-            keypoints_list: The dtection results. Each element is corresponding
-              to an input image. And They are orgnized as follows:
+           keypoints_list: The dtection results. Each element is corresponding
+              to an input image. And They are orgnized as follows: 
               [
                 # image one:
                 [
-                  [x, y, probability ( or visibility)] # a keypoint
+                  # person one
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ],
                   ...,
-                  [x, y, probability ( or visibility)]
+                  # person P
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ]
                 ],
                 ...,
                 # image N
                 [
-                  [x, y, probability ( or visibility)] # a keypoint
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ],
                   ...,
-                  [x, y, probability ( or visibility)]
+                  [
+                    [x, y, probability ( or visibility)] # a keypoint
+                    ...,
+                    [x, y, probability ( or visibility)]
+                  ]
                 ]
               ]
 

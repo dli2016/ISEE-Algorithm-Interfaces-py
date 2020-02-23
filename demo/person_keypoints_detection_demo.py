@@ -1,5 +1,5 @@
 """
-The demo show how to achive object detection with ISEEObjectDetection.
+The demo show how to achive person keypoints detection with ISEEKeypointsDetection.
 """
 
 import sys
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # 1. Initialization
     err_no = detector.init(config_file, params_dict)
     if err_no < 0:
-        err_type = ISEEObjectDetection.getErrType(err_no)
+        err_type = ISEEKeypointsDetection.getErrType(err_no)
         print("ERROR: initialize the detector FAILED - {}".format(err_type))
         exit(err_no)
     else:
@@ -46,14 +46,12 @@ if __name__ == '__main__':
     err_no = detector.process(imgs_data, output=output)
     stamp2 = time.time()
     if err_no < 0:
-        err_type = ISEEObjectDetection.getErrType(err_no)
+        err_type = ISEEKeypointsDetection.getErrType(err_no)
         print("ERROR: the detector predicts FAILED - {}".format(err_type))
     else:
         print("INFO: the detector predicts SUCCESSFULLY!")
     # 4. Get results
-    #bboxes = detector.getResults()
-    #print('INFO: prediction DONE, {} objects are detected and {:.4f} s is cost.'
-    #  .format(bboxes[0].shape[0], stamp2 - stamp1))
-    #print(err)
-    #ISEEObjectDetection.showCurrentDetectionMethod()
+    keypoints_list = detector.getResults()
+    print('INFO: prediction DONE, The {} keypoints are detected per person and {:.4f} s is cost.'
+      .format(keypoints_list[0][0].shape[0], stamp2 - stamp1))
 
