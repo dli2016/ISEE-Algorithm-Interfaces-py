@@ -145,4 +145,4 @@ class ISEEPanopticSegmentation(ISEEVisAlgIntf):
     
     @classmethod
     def showPredictionMethod(self):
-        print("INFO: %s is used for instance segmentation!" % self._SEGMENT_METHOD)
+        print("INFO: %s is used for panoptic segmentation!" % self._SEGMENT_METHOD)
