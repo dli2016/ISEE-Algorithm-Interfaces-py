@@ -5,7 +5,7 @@ The demo show how to achive person keypoints detection with ISEEKeypointsDetecti
 import sys
 import time
 sys.path.append('./')
-from keypoints_detection.baseline_coco.KeypointsDetection import ISEEKeypointsDetection
+from keypoints_detection.keypoint_rcnn_coco.KeypointsDetection import ISEEKeypointsDetection
 from detectron2.data.detection_utils import read_image
 
 if __name__ == '__main__':

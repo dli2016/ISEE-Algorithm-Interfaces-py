@@ -23,7 +23,7 @@ from detectron2.utils.visualizer import ColorMode, Visualizer
 class ISEEKeypointsDetection(ISEEVisAlgIntf):
 
     # The variable can be modified by "config_file" or "params_dict" in init
-    _DETECTION_METHOD = 'COCO-Baseline'
+    _DETECTION_METHOD = 'Keypoint-RCNN'
 
     def __init__(self):
         super(ISEEKeypointsDetection, self).__init__()
