@@ -5,8 +5,14 @@ The demo show how to achive object detection with ISEEObjectDetection.
 import sys
 import time
 sys.path.append('./')
-from object_detection.faster_rcnn_coco.ObjectDetection import ISEEObjectDetection
 from detectron2.data.detection_utils import read_image
+
+# Import the method that the user wanted to select.
+def selectMethod(method_name):
+    if method_name == 'Faster-RCNN':
+        from object_detection.faster_rcnn_coco.ObjectDetection import ISEEObjectDetection
+    predictor = ISEEObjectDetection()
+    return predictor
 
 if __name__ == '__main__':
     # Parameters
@@ -20,18 +26,14 @@ if __name__ == '__main__':
             'roi_threshold': 0.5
         }
     }
-    # parameters bak:
-    # Mask-RCNN
-    # config_file = '../3parties/detectron2/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml'
-    # 'detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl'
-    
     # Configuration file path
     config_file = '../3parties/detectron2/configs/COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml'
     # Input
     img_fpath = 'demo/data/input1.jpg'
     
     # Conduct detection
-    detector = ISEEObjectDetection()
+    method = 'Faster-RCNN'
+    detector = selectMethod(method)
     # 1. Initialization
     err_no = detector.init(config_file, params_dict)
     if err_no < 0:
@@ -44,7 +46,7 @@ if __name__ == '__main__':
     imgs_data = []
     img = read_image(img_fpath, format="BGR")
     imgs_data.append(img)
-    # 3. Pridect
+    # 3. Predict
     output = 'demo/data/'
     stamp1 = time.time()
     err_no = detector.process(imgs_data, output=output)
@@ -58,6 +60,5 @@ if __name__ == '__main__':
     bboxes = detector.getResults()
     print('INFO: prediction DONE, {} objects are detected and {:.4f} s is cost.'
       .format(bboxes[0].shape[0], stamp2 - stamp1))
-    #print(err)
-    #ISEEObjectDetection.showCurrentDetectionMethod()
+    #ISEEObjectDetection.showPredictionMethod()
 

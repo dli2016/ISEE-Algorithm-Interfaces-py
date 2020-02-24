@@ -104,12 +104,12 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
             The dtection results. None without calling the function of process.
         """
         detect_res = self._detection_res
-        outputs = []
+        bboxes_list = []
         # (user custom code START)
         # Convert the data format to the necessary one.
         # (user custom code END)
 
-        return outputs
+        return bboxes_list
 
     def release(self):
         """
@@ -119,5 +119,5 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
         return self._isee_errors['success']
     
     @classmethod
-    def showCurrentDetectionMethod(self):
+    def showPredictionMethod(self):
         print("INFO: %s is used for detection!" % self._DETECTION_METHOD)

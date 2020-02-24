@@ -12,8 +12,6 @@ from common.isee_interface import ISEEVisAlgIntf
 # Import necessary packaages:
 # Following is an EXAMPLE that achieves object detection using detectron2
 # (https://github.com/facebookresearch/detectron2)
-import cv2
-import numpy as np
 from detectron2.config import get_cfg # configuration parameters.
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.data import MetadataCatalog
@@ -169,5 +167,5 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
         return self._isee_errors['success']
     
     @classmethod
-    def showCurrentDetectionMethod(self):
+    def showPredictionMethod(self):
         print("INFO: %s is used for detection!" % self._DETECTION_METHOD)

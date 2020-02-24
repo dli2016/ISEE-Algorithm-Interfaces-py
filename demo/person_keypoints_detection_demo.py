@@ -40,7 +40,7 @@ if __name__ == '__main__':
     imgs_data = []
     img = read_image(img_fpath, format="BGR")
     imgs_data.append(img)
-    # 3. Pridect
+    # 3. Predict
     output = 'demo/data/'
     stamp1 = time.time()
     err_no = detector.process(imgs_data, output=output)
@@ -52,6 +52,6 @@ if __name__ == '__main__':
         print("INFO: the detector predicts SUCCESSFULLY!")
     # 4. Get results
     keypoints_list = detector.getResults()
-    print('INFO: prediction DONE, The {} keypoints are detected per person and {:.4f} s is cost.'
+    print('INFO: prediction DONE, {} keypoints are detected per person and {:.4f} s is cost.'
       .format(keypoints_list[0][0].shape[0], stamp2 - stamp1))
 

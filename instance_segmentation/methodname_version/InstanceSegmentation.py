@@ -1,8 +1,8 @@
 """
-Brief     : The class for Keypoints Detection. It is inherented from the abstract
-            class ISEEVisAlgIntf.
+Brief     : The class for instance segmentation. It is inherented from the 
+            abstract class ISEEVisAlgIntf.
 Version   : 0.1
-Date      : 2020/02/23
+Date      : 2020/02/24
 Copyright : CRIPAC
 """
 
@@ -10,28 +10,26 @@ import os
 from common.isee_interface import ISEEVisAlgIntf
 
 # Import necessary packaages:
-# (user customs code START)
+# (User custroms code)
 # import ...
-# (User customs code END)
 # Import packages end.
 
-class ISEEKeypointsDetection(ISEEVisAlgIntf):
+class ISEEInstanceSegmentation(ISEEVisAlgIntf):
 
     # The variable can be modified by "config_file" or "params_dict" in init
-    _DETECTION_METHOD = 'Methodname'
-
+    _SEGMENT_METHOD = 'Mask-RCNN'
 
     def __init__(self):
-        super(ISEEKeypointsDetection, self).__init__()
+        super(ISEEInstanceSegmentation, self).__init__()
 
     def init(self, config_file, params_dict=None):
         """
-        Initialize the keypoints detection model.
+        Initialize the model for instance segmentation.
         
         config_file:
             The path of the configuration file that contains the necessary
-            parameters to iniialize the preidction network (the formats, e.g. 
-            YAML, Json and XML etc,, are recomended).
+            parameters to iniialize the segmentation network (the formats, 
+            e.g. YAML, Json and XML etc., are recomended).
         params_dict:
             The necessary parameters to initialize the project. It is in the 
             type of dictionary as follows:
@@ -51,19 +49,20 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
         if not os.path.exists(config_file):
             return self._isee_errors['no_such_file']
 
-        # (user customs code START)
-        # Set parameters. 
-        # Create detector
-        # (user customs code END)
+        # (user custom code START)
+        # Load parameters. 
+        # Set parameters
+        # Create predictor
+        # (user custom code END)
 
         return self._isee_errors['success']
 
     def process(self, imgs_data, **kwargs):
         """
-        Achieve detection with loaded model.
+        Achieve instance segmentation with loaded model.
 
         imgs_data:
-            A list images data to detect.
+            A list of images data to segment.
         **kwargs :
             The necessary parameters to implement inference combing 
             the results of other tasks.
@@ -74,8 +73,8 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
         # Input checking
         if imgs_data is None or len(imgs_data) == 0:
             return self._isee_errors['null_data']
-        detector = self._detector
-        if detector is None:
+        predictor = self._predictor
+        if predictor is None:
             return self._isee_errors['null_predictor']
 
         # Predict
@@ -86,54 +85,36 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
 
     def getResults(self):
         """
-        Convert the detection results to necessary format.
+        Convert the results of instance segementation to necessary format.
 
         return:
-           keypoints_list: The dtection results. Each element is corresponding
-              to an input image. And They are orgnized as follows: 
-              [
-                # image one:
-                [
-                  # person one
-                  [
-                    [x, y, probability ( or visibility)] # a keypoint
-                    ...,
-                    [x, y, probability ( or visibility)]
-                  ],
-                  ...,
-                  # person P
-                  [
-                    [x, y, probability ( or visibility)] # a keypoint
-                    ...,
-                    [x, y, probability ( or visibility)]
-                  ]
-                ],
-                ...,
-                # image N
-                [
-                  [
-                    [x, y, probability ( or visibility)] # a keypoint
-                    ...,
-                    [x, y, probability ( or visibility)]
-                  ],
-                  ...,
-                  [
-                    [x, y, probability ( or visibility)] # a keypoint
-                    ...,
-                    [x, y, probability ( or visibility)]
-                  ]
-                ]
-              ]
-
-            None without calling the function of process.
+            The results of instance segmentation. None without calling the function of process.
+            The results named 'masks_list' is a list of dict whose format as follows:
+            [
+              # Image one
+              {
+                'scores': [], # a vector about the confidence as a numpy array.
+                'labels': [], # a vector about the labels of the instances.
+                'masks' : []  # its a numpy array with the shape (N, H, W), 
+                                where N is the number of instances. And each
+                                element is the label of the pixel with Ture/False.
+              },
+              ...,
+              # Image I
+              {
+                'scores': [],
+                'labels': [],
+                'masks' : []
+              }
+            ]
         """
-        detect_res = self._detection_res
-        keypoints_list = []
+        segment_res = self._segment_res
+        masks_list = []
         # (user custom code START)
         # Convert the data format to the necessary one.
         # (user custom code END)
 
-        return keypoints_list
+        return masks_list
 
     def release(self):
         """
@@ -144,4 +125,4 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
     
     @classmethod
     def showPredictionMethod(self):
-        print("INFO: %s is used for keypoints detection!" % self._DETECTION_METHOD)
+        print("INFO: %s is used for instance segmentation!" % self._SEGMENT_METHOD)
