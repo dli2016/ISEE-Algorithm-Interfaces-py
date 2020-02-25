@@ -5,6 +5,7 @@ The demo show how to achive object detection with ISEEObjectDetection.
 import sys
 import time
 sys.path.append('./')
+from common.isee_interface import ISEEVisAlgIntf
 from detectron2.data.detection_utils import read_image
 
 # Import the method that the user wanted to select.
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     # 1. Initialization
     err_no = detector.init(config_file, params_dict)
     if err_no < 0:
-        err_type = ISEEObjectDetection.getErrType(err_no)
+        err_type = ISEEVisAlgIntf.getErrType(err_no)
         print("ERROR: initialize the detector FAILED - {}".format(err_type))
         exit(err_no)
     else:
@@ -52,7 +53,7 @@ if __name__ == '__main__':
     err_no = detector.process(imgs_data, output=output)
     stamp2 = time.time()
     if err_no < 0:
-        err_type = ISEEObjectDetection.getErrType(err_no)
+        err_type = ISEEVisAlgIntf.getErrType(err_no)
         print("ERROR: the detector predicts FAILED - {}".format(err_type))
     else:
         print("INFO: the detector predicts SUCCESSFULLY!")
@@ -60,5 +61,3 @@ if __name__ == '__main__':
     bboxes = detector.getResults()
     print('INFO: prediction DONE, {} objects are detected and {:.4f} s is cost.'
       .format(bboxes[0].shape[0], stamp2 - stamp1))
-    #ISEEObjectDetection.showPredictionMethod()
-
