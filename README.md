@@ -52,7 +52,7 @@ the data management in ISEE.
 
 ### Citing ISEE
 
-  BibTex
+```BibTex
 @article{li2019isee,
   title={ISEE: An Intelligent Scene Exploration and Evaluation Platform for Large-Scale Visual Surveillance},
   author={Li, Da and Zhang, Zhang and Yu, Kai and Huang, Kaiqi and Tan, Tieniu},
@@ -63,4 +63,5 @@ the data management in ISEE.
   year={2019},
   publisher={IEEE}
 }
+```
 
