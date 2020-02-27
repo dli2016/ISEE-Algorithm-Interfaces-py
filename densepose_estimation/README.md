@@ -33,7 +33,7 @@ The text illustrates how to add custom densepose estimation class to run on ISEE
     ```
 
     Note:
-    - The fuction of [DensePoseResult.decode_png_data()](https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose/densepose/structures.py) in the project [DensePose]((https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose) can be used to decode iuv_png_data to get iuv data.
+    - The fuction of [DensePoseResult.decode_png_data()](https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose/densepose/structures.py) in the project [DensePose](https://github.com/facebookresearch/detectron2/blob/master/projects/DensePose) can be used to decode iuv_png_data to get iuv data.
     - The shape of the decoded iuv data is (3, H, W).
     - iuv[0, :, :] is the patch index of image points, indicating which of the 24 surface patches the point is on.
     - iuv[1, :, :] is the U-coordinate value of image points.
