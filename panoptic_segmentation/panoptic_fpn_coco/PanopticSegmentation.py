@@ -73,7 +73,11 @@ class ISEEPanopticSegmentation(ISEEVisAlgIntf):
         cfg.MODEL.PANOPTIC_FPN.COMBINE.INSTANCES_CONFIDENCE_THRESH = \
             params_dict['reserved']['panoptic_threshold']
         cfg.freeze()
-        self._cfg = cfg # For showing the segmentation results.
+        # For showing the segmentation results.
+        metadata = MetadataCatalog.get(
+          cfg.DATASETS.TEST[0] if len(cfg.DATASETS.TEST) else "__unused"
+        )
+        self._metadata = metadata
         # Create predictor
         self._predictor = DefaultPredictor(cfg)
         # (user custom code END)
@@ -104,6 +108,7 @@ class ISEEPanopticSegmentation(ISEEVisAlgIntf):
         # (user custom code START)
         # An EXAMPLE using detectron2
         output_path = kwargs['output']
+        metadata = self._metadata
         segment_res = []
         cnt = 0
         for img in imgs_data:
@@ -113,9 +118,6 @@ class ISEEPanopticSegmentation(ISEEVisAlgIntf):
             segment_res.append(out)
             # To write the segmentation results to an image.
             if output_path is not None:
-                metadata = MetadataCatalog.get(
-                  self._cfg.DATASETS.TEST[0] if len(self._cfg.DATASETS.TEST) else "__unused"
-                )
                 img = img[:, :, ::-1]
                 vis = Visualizer(img, metadata)
                 vis_img = vis.draw_panoptic_seg_predictions(

@@ -72,7 +72,11 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
         cfg.MODEL.WEIGHTS = params_dict['model_path'][0]
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = params_dict['reserved']['roi_threshold']
         cfg.freeze()
-        self._cfg = cfg # For showing the detection results.
+        # For showing the detection results.
+        metadata = MetadataCatalog.get(
+          cfg.DATASETS.TEST[0] if len(cfg.DATASETS.TEST) else "__unused"
+        )
+        self._metadata = metadata
         # Create detector
         self._detector = DefaultPredictor(cfg)
         # (user custom code END)
@@ -103,6 +107,7 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
         # (user custom code START)
         # An EXAMPLE using detectron2
         output_path = kwargs['output']
+        metadata = self._metadata
         detect_res = []
         cnt = 0
         for img in imgs_data:
@@ -111,9 +116,6 @@ class ISEEObjectDetection(ISEEVisAlgIntf):
             detect_res.append(out)
             # To write the detection results to an image.
             if output_path is not None:
-                metadata = MetadataCatalog.get(
-                  self._cfg.DATASETS.TEST[0] if len(self._cfg.DATASETS.TEST) else "__unused"
-                )
                 img = img[:, :, ::-1]
                 vis = Visualizer(img, metadata)
                 instances = out['instances'].to('cpu')

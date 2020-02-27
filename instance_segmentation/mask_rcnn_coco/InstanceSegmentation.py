@@ -71,7 +71,11 @@ class ISEEInstanceSegmentation(ISEEVisAlgIntf):
         cfg.MODEL.WEIGHTS = params_dict['model_path'][0]
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = params_dict['reserved']['roi_threshold']
         cfg.freeze()
-        self._cfg = cfg # For showing the segmentation results.
+        # For showing the segmentation results.
+        metadata = MetadataCatalog.get(
+            cfg.DATASETS.TEST[0] if len(cfg.DATASETS.TEST) else "__unused"
+        )
+        self._metadata = metadata
         # Create predictor
         self._predictor = DefaultPredictor(cfg)
         # (user custom code END)
@@ -102,6 +106,7 @@ class ISEEInstanceSegmentation(ISEEVisAlgIntf):
         # (user custom code START)
         # An EXAMPLE using detectron2
         output_path = kwargs['output']
+        metadata = self._metadata
         segment_res = []
         cnt = 0
         for img in imgs_data:
@@ -110,9 +115,6 @@ class ISEEInstanceSegmentation(ISEEVisAlgIntf):
             segment_res.append(out)
             # To write the segmentation results to an image.
             if output_path is not None:
-                metadata = MetadataCatalog.get(
-                  self._cfg.DATASETS.TEST[0] if len(self._cfg.DATASETS.TEST) else "__unused"
-                )
                 img = img[:, :, ::-1]
                 vis = Visualizer(img, metadata)
                 instances = out['instances'].to('cpu')

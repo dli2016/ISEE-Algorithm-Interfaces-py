@@ -6,8 +6,8 @@ The text illustrates how to add custom keypoints detection class to run on ISEE.
 * The project folder should include the dependencies to complete the uploaded method.
 * To achieve Keypoints Detection, one should complete the content provided in "KeypointsDetection.py":
   + The class of ISEEKeypointsDetection is inherented from the abstract class "ISEEVisAlgIntf"
-      I.  Don't change the class name and functions name.
-      II. Don't change the order of the parameters in the fucntions.
+    - Don't change the class name and functions name.
+    - Don't change the order of the parameters in the fucntions.
   + The return of the function "getResults" will influence the data management in ISEE, so the results should follow the format:
 
 
