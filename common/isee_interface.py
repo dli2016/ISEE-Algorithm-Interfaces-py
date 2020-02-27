@@ -11,10 +11,11 @@ class ISEEVisAlgIntf(metaclass=abc.ABCMeta):
 
     # Error Code
     _isee_errors = {
-        'success': 0,        # Success
-        'no_such_file': -1,  # File is not existed
-        'null_data': -2,     # Null data
-        'null_predictor': -3 # Null predictor
+        'success': 0,         # Success
+        'no_such_file': -1,   # File is not existed
+        'null_data': -2,      # Null data
+        'null_predictor': -3, # Null predictor
+        'bad_device_id': -4   # Bad device index
         }
 
     @classmethod
