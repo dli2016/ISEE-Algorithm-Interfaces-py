@@ -17,8 +17,8 @@ inherent.
 * **demo**: it contains all the main files to run the example algorithms that
 achieve by inherenting the abstract class ISEEVisAlgIntf.
 * **densepose_estimation**: the module for densepose estimation.
-  + **methedname_version**: the root folder for the user uploaded algorithms.
-  the user should name the folder through combining the methed name and
+  + **methodname_version**: the root folder for the user uploaded algorithms.
+  the user should name the folder through combining the method name and
   version flag.
     - **DenseposeEstimation.py**: complete the ISEEDenseposeEstimation by
     implement the methods in ISEEVisAlgIntf.
