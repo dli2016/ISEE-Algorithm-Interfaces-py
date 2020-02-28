@@ -1,8 +1,8 @@
 """
-Brief     : The class for Keypoints Detection. It is inherented from the abstract 
-            class ISEEVisAlgIntf.
-Version   : 0.1
-Date      : 2020/02/23
+Brief     : The class for Pose Keypoints Detection. It is inherented from the 
+            abstract class ISEEVisAlgIntf.
+Version   : 0.2
+Date      : 2020/02/23, 2020/02/28
 Copyright : CRIPAC
 """
 
@@ -10,7 +10,7 @@ import os
 from common.isee_interface import ISEEVisAlgIntf
 
 # Import necessary packaages:
-# Following is an EXAMPLE that achieves keypoints detection using detectron2
+# Following is an EXAMPLE that achieves person pose estimation using detectron2
 # (https://github.com/facebookresearch/detectron2)
 import cv2
 import numpy as np
@@ -20,17 +20,17 @@ from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import ColorMode, Visualizer
 # Import packages end.
 
-class ISEEKeypointsDetection(ISEEVisAlgIntf):
+class ISEEPoseKeypointsDetection(ISEEVisAlgIntf):
 
     # The variable can be modified by "config_file" or "params_dict" in init
     _DETECTION_METHOD = 'Keypoint-RCNN'
 
     def __init__(self):
-        super(ISEEKeypointsDetection, self).__init__()
+        super(ISEEPoseKeypointsDetection, self).__init__()
 
     def init(self, config_file, params_dict=None):
         """
-        Initialize the keypoints detection model.
+        Initialize the pose keypoints detection model.
         
         config_file:
             The path of the configuration file that contains the necessary
@@ -86,7 +86,7 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
 
     def process(self, imgs_data, **kwargs):
         """
-        Achieve keypoints detection with loaded model.
+        Achieve pose keypoints detection with loaded model.
 
         imgs_data:
             A list images data to detect.
@@ -121,7 +121,7 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
                 vis = Visualizer(img, metadata)
                 instances = out['instances'].to('cpu')
                 vis_img = vis.draw_instance_predictions(predictions=instances)
-                ifname = 'keypoints_detection_res_{}.jpg'.format(cnt)
+                ifname = 'person_keypoints_detection_res_{}.jpg'.format(cnt)
                 ifpath = os.path.join(output_path, ifname)
                 vis_img.save(ifpath)
         self._detection_res = detect_res
@@ -193,4 +193,5 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
     
     @classmethod
     def showPredictionMethod(self):
-        print("INFO: %s is used for keypoints detection!" % self._DETECTION_METHOD)
+        print("INFO: {} is used for pose keypoints detection!".
+            format(self._DETECTION_METHOD))

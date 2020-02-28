@@ -29,12 +29,18 @@ achieve by inherenting the abstract class ISEEVisAlgIntf.
   and [DensePose](https://github.com/facebookresearch/detectron2/tree/master/projects/DensePose).
 * **instance_segmentation**: the module for instance segmentation (its orgnization
   is similar with densepose_estimation).
-* **keypoints_detection**: the module for keypoints detection (its orgnization is
-  similar with densepose_estimation).
+* **keypoints_detection**: the module for keypoints detection including person pose
+  and face.
+  + **pose**: person pose etimation (its orgnization is similar with densepose_estimation).
+  + **face**: face keypoints detection (comming soon ...).
 * **object_detection**: the module for object detection (its orgnization is
   similar with densepose_estimation).
 * **panoptic_segmentation**: the module for panoptic segmentation (its orgnization is
   similar with densepose_estimation).
+* **reid**: the module for extracting reid features (comming soon ...).
+* **attribute_recognition**: the module for attribute recognition (comming soon ...).
+* **tracking**: the module for object tracking (comming soon...).
+* **action_recognition**: the module for action recognition (comming soon ...).
 
 ### Remarks
 

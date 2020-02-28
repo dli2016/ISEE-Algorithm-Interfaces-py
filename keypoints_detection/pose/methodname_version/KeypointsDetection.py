@@ -1,8 +1,8 @@
 """
-Brief     : The class for Keypoints Detection. It is inherented from the abstract
-            class ISEEVisAlgIntf.
-Version   : 0.1
-Date      : 2020/02/23
+Brief     : The class for Pose Keypoints Detection. It is inherented from the 
+            abstract class ISEEVisAlgIntf.
+Version   : 0.2
+Date      : 2020/02/23, 2020/02.28
 Copyright : CRIPAC
 """
 
@@ -15,18 +15,18 @@ from common.isee_interface import ISEEVisAlgIntf
 # (User customs code END)
 # Import packages end.
 
-class ISEEKeypointsDetection(ISEEVisAlgIntf):
+class ISEEPoseKeypointsDetection(ISEEVisAlgIntf):
 
     # The variable can be modified by "config_file" or "params_dict" in init
     _DETECTION_METHOD = 'Methodname'
 
 
     def __init__(self):
-        super(ISEEKeypointsDetection, self).__init__()
+        super(ISEEPoseKeypointsDetection, self).__init__()
 
     def init(self, config_file, params_dict=None):
         """
-        Initialize the keypoints detection model.
+        Initialize the pose keypoints detection model.
         
         config_file:
             The path of the configuration file that contains the necessary
@@ -144,4 +144,5 @@ class ISEEKeypointsDetection(ISEEVisAlgIntf):
     
     @classmethod
     def showPredictionMethod(self):
-        print("INFO: %s is used for keypoints detection!" % self._DETECTION_METHOD)
+        print("INFO: {} is used for person keypoints detection!".
+            format(self._DETECTION_METHOD))

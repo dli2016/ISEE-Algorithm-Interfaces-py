@@ -5,7 +5,7 @@ The demo show how to achive person keypoints detection with ISEEKeypointsDetecti
 import sys
 import time
 sys.path.append('./')
-from keypoints_detection.keypoint_rcnn_coco.KeypointsDetection import ISEEKeypointsDetection
+from keypoints_detection.pose.keypoint_rcnn_coco.KeypointsDetection import ISEEPoseKeypointsDetection
 from detectron2.data.detection_utils import read_image
 
 if __name__ == '__main__':
@@ -27,11 +27,11 @@ if __name__ == '__main__':
     img_fpath = 'demo/data/input2.jpg'
     
     # Conduct detection
-    detector = ISEEKeypointsDetection()
+    detector = ISEEPoseKeypointsDetection()
     # 1. Initialization
     err_no = detector.init(config_file, params_dict)
     if err_no < 0:
-        err_type = ISEEKeypointsDetection.getErrType(err_no)
+        err_type = ISEEPoseKeypointsDetection.getErrType(err_no)
         print("ERROR: initialize the detector FAILED - {}".format(err_type))
         exit(err_no)
     else:
@@ -46,12 +46,12 @@ if __name__ == '__main__':
     err_no = detector.process(imgs_data, output=output)
     stamp2 = time.time()
     if err_no < 0:
-        err_type = ISEEKeypointsDetection.getErrType(err_no)
+        err_type = ISEEPoseKeypointsDetection.getErrType(err_no)
         print("ERROR: the detector predicts FAILED - {}".format(err_type))
     else:
         print("INFO: the detector predicts SUCCESSFULLY!")
     # 4. Get results
-    keypoints_list = detector.getResults()
+    print(keypoints_list[0][0])
     print('INFO: prediction DONE, {} keypoints are detected per person and {:.4f} s is cost.'
       .format(keypoints_list[0][0].shape[0], stamp2 - stamp1))
 
