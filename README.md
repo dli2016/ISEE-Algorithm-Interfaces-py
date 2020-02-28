@@ -29,16 +29,16 @@ achieve by inherenting the abstract class ISEEVisAlgIntf.
   and [DensePose](https://github.com/facebookresearch/detectron2/tree/master/projects/DensePose).
 * **instance_segmentation**: the module for instance segmentation (its orgnization
   is similar with densepose_estimation).
-* **keypoints_detection**: the module for keypoints detection (its orgnizaion is
+* **keypoints_detection**: the module for keypoints detection (its orgnization is
   similar with densepose_estimation).
-* **object_detection**: the module for object detection (its orgnizaion is
+* **object_detection**: the module for object detection (its orgnization is
   similar with densepose_estimation).
-* **panoptic_segmentation**: the module for panoptic segmentation (its orgnizaion is
+* **panoptic_segmentation**: the module for panoptic segmentation (its orgnization is
   similar with densepose_estimation).
 
 ### Remarks
 
-* To run the custom algorithms on ISEE, only a cofiguration file (e.g., XML, JSon, YAML, etc.)
+* To run the custom algorithms on ISEE, only a cofiguration file (e.g., XML, JSON, YAML, etc.)
 can be provided to initialize the method.
 * The output formats of different algorthims have speficied in each module (more details can
 be found in the README of each module). Please do not change the format which will influence 
